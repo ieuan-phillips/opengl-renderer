@@ -40,13 +40,13 @@ float vertices[] = { // This is for drawing a rectangle using EBO
 	-0.5f,  0.5f, 0.0f   // top left 
 };
 unsigned int indices[] = {  // note that we start from 0!
-	0, 1, 3,
-	1, 2, 3// first triangle
+	0, 1, 3, // first triangle
+	1, 2, 3  // second triangle
 };
 
 int main()
 {
-    glfwInit();
+	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -146,7 +146,7 @@ int main()
 	}
 
 	glfwTerminate();
-    return 0;
+	return 0;
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
