@@ -4,9 +4,11 @@ A small real-time renderer in modern C++ and OpenGL 3.3 core, built while I work
 
 ## Progress
 
+![Hello Triangle](screenshots/triangle.png) ![Hello Rectangle (EBO)](screenshots/rectangle.png)
+
 ### Getting started
-- [ ] Hello Window
-- [ ] Hello Triangle
+- [ x ] Hello Window
+- [ x ] Hello Triangle
 - [ ] Shaders
 - [ ] Textures
 - [ ] Transformations
@@ -59,7 +61,9 @@ python -m glad --profile core --api gl=3.3 --generator c --out-path external/gla
 
 ## What I learned
 
-(Added as I go.)
+- How to set up a modern OpenGL 3.3 core profile context with GLFW and glad
+- How to draw a triangle with OpenGL 3.3 core profile
+- How to draw a rectangle with an Element Buffer Object (EBO)
 
 ## Credits
 
