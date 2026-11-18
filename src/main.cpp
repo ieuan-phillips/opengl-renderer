@@ -4,7 +4,6 @@
 
 #include <iostream>
 
-
 const char* vertexShaderSource = "#version 330 core\n"
 	"layout (location = 0) in vec3 aPos;\n"
 	"void main()\n"
@@ -27,10 +26,22 @@ void processInput(GLFWwindow* window)
 		glfwSetWindowShouldClose(window, true);
 }
 
-float vertices[] = {
-	-0.5f, -0.5f, 0.0f, // left  
-	 0.5f, -0.5f, 0.0f, // right 
-	 0.0f,  0.5f, 0.0f  // top   
+// float vertices[] = { // This is for drawing a triangle without EBO
+//	-0.5f, -0.5f, 0.0f, // left  
+//	 0.5f, -0.5f, 0.0f, // right 
+//	 0.0f,  0.5f, 0.0f  // top   
+//};
+
+
+float vertices[] = { // This is for drawing a rectangle using EBO
+	 0.5f,  0.5f, 0.0f,  // top right
+	 0.5f, -0.5f, 0.0f,  // bottom right
+	-0.5f, -0.5f, 0.0f,  // bottom left
+	-0.5f,  0.5f, 0.0f   // top left 
+};
+unsigned int indices[] = {  // note that we start from 0!
+	0, 1, 3,
+	1, 2, 3// first triangle
 };
 
 int main()
@@ -62,6 +73,11 @@ int main()
 	unsigned int VAO;
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
+
+	unsigned int EBO;
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	unsigned int VBO;
 	glGenBuffers(1, &VBO);
@@ -120,7 +136,9 @@ int main()
 
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		// glDrawArrays(GL_TRIANGLES, 0, 3); // This is for drawing without EBO
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // This is for drawing with EBO
 
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
